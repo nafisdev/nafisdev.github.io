@@ -1,2 +1,3 @@
-# nafisdev.github.io
-My blog
+# My personal blog :)
+
+http://nafisdev.com/
