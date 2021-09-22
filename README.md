@@ -1,3 +1,3 @@
 # My personal blog :)
 
-http://nafisdev.com/
+https://nafisdev.github.io
