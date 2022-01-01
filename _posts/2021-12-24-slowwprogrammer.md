@@ -2,7 +2,7 @@
 layout: post
 title: SlowwProgrammar
 comments: true
-image: Innovation-shadow_opt.jpg
+image: 2021.jpg
 excerpt: Ending 2021 with a plan for 2022
 keywords: ""
 ---
