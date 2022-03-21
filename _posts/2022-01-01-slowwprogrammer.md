@@ -6,4 +6,75 @@ image: 2021.jpg
 excerpt: Ending 2021 with a plan for 2022
 keywords: ""
 ---
-The year 2021 was prolifirated with lots of learning. I started with Azure DevOps and ending it with Angular12. In the middle , i enrolled for a [data scientist program](https://github.com/nafisdev/dataquest) and now i can promote myself in DataScience segment to be considered as a better novice. Didnt have any resolution for 2021, but eventually clocked a decent progress. As I always tried to dig deeper wherever i found things fascinating, I found a great blog to brush my understanding of OS [3 easy pieces](https://pages.cs.wisc.edu/~remzi/OSTEP/). There were some brushup in my coding skills too. thanks to leetcode. With all of this, I have realised that a lot of things need to be done in my personal life too. 
+
+## Whats hidden
+
+There are lots of tutorial for elasticsearch online, but here we'll proceed the engineer way. ElasticSearch is a documented oriented database similar to other mainstream no-sql dbs. The crux algorithm is [InvertedIndex](https://www.geeksforgeeks.org/inverted-index/) and the elasticsearch uses [ApacheLucene](https://lucene.apache.org/)
+The following code gives a gist the undergoing logic.
+
+```cs
+public class ElasticSearch
+{
+
+    public ElasticSeaResilient strategy flowrch()
+    {}
+
+    public void add()
+    {
+
+    }
+
+    public string Search()
+    {
+
+    }
+    .
+    .
+    .
+}
+``` 
+
+<figure>
+  <img src="{{ '/images/elastic-lucene.png' | prepend: site.baseurl }}" alt=""> 
+  <figcaption>Fig1. - Lucene Index</figcaption>
+</figure>
+
+
+## Lets Start
+
+Once, the fundamental logic is standardized, it can be wrapped around. And, apache community has done a commendable job to expose this logic through api. 
+Now, all we have to learn is the schema and standard operations to manipulate default behaviour.
+
+Operations: 
+Create index
+Lets be typesafe
+Get the analyzer
+How to boost
+Sort and Aggregate
+
+### Request
+
+`GET /thing/`
+
+    curl -i -H 'Accept: application/json' http://localhost:7000/thing/
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 2
+
+    []
+
+
+
+
+
+## Aha , we can scale
+
+shard = hash(routing) % number_of_primary_shards
+
+distributive system logic
