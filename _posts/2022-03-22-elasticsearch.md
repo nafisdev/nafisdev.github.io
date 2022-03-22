@@ -13,24 +13,77 @@ There are lots of tutorial for elasticsearch online, but here we'll proceed the 
 The following code gives a gist the undergoing logic.
 
 ```cs
-public class ElasticSearch
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+
+struct Doc
+{
+    int id;
+    string data;
+};
+
+
+
+class ElasticSearch
 {
 
-    public ElasticSeaResilient strategy flowrch()
-    {}
-
-    public void add()
+    public:
+    
+    unordered_map<string, vector<Doc> > invertedIndex;
+    ElasticSearch()
     {
 
     }
 
-    public string Search()
+    void add(Doc *d)
     {
-
+        vector<string> characters =  analyzeAndTokenize(d->data);
+        for(auto a: characters)
+        {
+            // cout<<a;
+            // cout<<endl<<d->data;
+            invertedIndex[a].push_back(*d);
+            // // docmap[d.id]=d.data;
+        }
     }
-    .
-    .
-    .
+    
+
+    vector<string> analyzeAndTokenize(string word)
+    {
+        return {"Nafis" ,  "I" , "am"};
+    }
+
+    void Search(string word)
+    {
+        vector<Doc> docs;
+        for(auto a: invertedIndex)
+        {
+            if(a.first==word)
+            {
+               docs = invertedIndex[word];
+               break;
+            }
+        }
+        for(auto a : docs)
+        {
+            cout<<a.data;
+        }
+    }
+};
+
+
+
+int main()
+{
+    ElasticSearch *e =  new ElasticSearch();
+    Doc *d = new Doc();
+    d->id=1;
+    d->data="Hey I am Nafis, Find Me";
+    e->add(d);
+    e->Search("Nafis");
 }
 ``` 
 
