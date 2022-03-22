@@ -99,28 +99,171 @@ Once, the fundamental logic is standardized, it can be wrapped around. And, apac
 Now, all we have to learn is the schema and standard operations to manipulate default behaviour.
 
 Operations: 
-Create index
-Lets be typesafe
-Get the analyzer
-How to boost
-Sort and Aggregate
 
-### Request
+
+### Create index
 
 `GET /thing/`
 
     curl -i -H 'Accept: application/json' http://localhost:7000/thing/
 
-### Response
 
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 2
+### Lets be typesafe
 
-    []
+    PUT /my_index/_mapping?pretty
+    {
+    "properties": {
+        "email": {
+        "type": "keyword"
+        }
+    }
+    }
+
+
+### Get the analyzer
+
+<figure>
+  <img src="{{ '/images/analyzers.png' | prepend: site.baseurl }}" alt=""> 
+  <figcaption>Fig1. - Analyzer Workflow</figcaption>
+</figure>
+### Request
+
+    PUT my-index-000001
+    {
+    "settings": {
+        "analysis": {
+        "analyzer": {
+            "my_custom_analyzer": {
+            "type": "custom", 
+            "tokenizer": "standard",
+            "char_filter": [
+                "html_strip"
+            ],
+            "filter": [
+                "lowercase",
+                "asciifolding"
+            ]
+            }
+        }
+        }
+    }
+    }
+
+    POST my-index-000001/_analyze
+    {
+    "analyzer": "my_custom_analyzer",
+    "text": "Is this <b>déjà vu</b>?"
+    }
+
+
+### How to boost and set Score
+
+There is a mathematical formula for getting the 
+[relevance score.](https://www.infoq.com/articles/similarity-scoring-elasticsearch/). Morever,  individual fields can be boosted automatically — count more towards the relevance score — at query time, with the boost parameter as follows:
+
+    PUT my-index-000001
+    {
+    "mappings": {
+        "properties": {
+        "title": {
+            "type": "text",
+            "boost": 2 
+        },
+        "content": {
+            "type": "text"
+        }
+        }
+    }
+    }
+
+To understand the relevance score, there is a explain api
+
+
+
+    GET /my-index-000001/_explain/0
+    {
+    "query" : {
+        "match" : { "message" : "elasticsearch" }
+    }
+    }
+
+The API returns the following response:
+
+```cs
+{
+"_index":"my-index-000001",
+"_id":"0",
+"matched":true,
+"explanation":{
+    "value":1.6943598,
+    "description":"weight(message:elasticsearch in 0) [PerFieldSimilarity], result of:",
+    "details":[
+        {
+            "value":1.6943598,
+            "description":"score(freq=1.0), computed as boost * idf * tf from:",
+            "details":[
+            {
+                "value":2.2,
+                "description":"boost",
+                "details":[]
+            },
+            {
+                "value":1.3862944,
+                "description":"idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:",
+                "details":[
+                    {
+                        "value":1,
+                        "description":"n, number of documents containing term",
+                        "details":[]
+                    },
+                    {
+                        "value":5,
+                        "description":"N, total number of documents with field",
+                        "details":[]
+                    }
+                ]
+            },
+            {
+                "value":0.5555556,
+                "description":"tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:",
+                "details":[
+                    {
+                        "value":1.0,
+                        "description":"freq, occurrences of term within document",
+                        "details":[]
+                    },
+                    {
+                        "value":1.2,
+                        "description":"k1, term saturation parameter",
+                        "details":[]
+                    },
+                    {
+                        "value":0.75,
+                        "description":"b, length normalization parameter",
+                        "details":[]
+                    },
+                    {
+                        "value":3.0,
+                        "description":"dl, length of field",
+                        "details":[]
+                    },
+                    {
+                        "value":5.4,
+                        "description":"avgdl, average length of field",
+                        "details":[]
+                    }
+                ]
+            }
+            ]
+        }
+    ]
+}
+}
+
+```
+
+
+
 
 
 
