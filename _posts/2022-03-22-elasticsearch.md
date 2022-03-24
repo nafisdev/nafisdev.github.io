@@ -2,14 +2,13 @@
 layout: post
 title: ElasticSearch - Now you Know
 comments: true
-image: 2021.jpg
+image: elasticsearchheader.jpeg
 excerpt: Lets Uncover it
 keywords: ""
 ---
 
-***
 We have a playground for you [tgifplayground](http://20.106.20.226:9200/).
-***
+
 ## Whats hidden
 
 There are lots of tutorial for elasticsearch online, but here we'll proceed the engineer way. ElasticSearch is a documented oriented database similar to other mainstream no-sql dbs. The crux algorithm is [InvertedIndex](https://www.geeksforgeeks.org/inverted-index/) and the elasticsearch uses [ApacheLucene](https://lucene.apache.org/)
