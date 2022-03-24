@@ -7,6 +7,9 @@ excerpt: Lets Uncover it
 keywords: ""
 ---
 
+***
+We have a playground for you [tgifplayground](http://20.106.20.226:9200/).
+***
 ## Whats hidden
 
 There are lots of tutorial for elasticsearch online, but here we'll proceed the engineer way. ElasticSearch is a documented oriented database similar to other mainstream no-sql dbs. The crux algorithm is [InvertedIndex](https://www.geeksforgeeks.org/inverted-index/) and the elasticsearch uses [ApacheLucene](https://lucene.apache.org/)
@@ -98,17 +101,14 @@ int main()
 Once, the fundamental logic is standardized, it can be wrapped around. And, apache community has done a commendable job to expose this logic through api. 
 Now, all we have to learn is the schema and standard operations to manipulate default behaviour.
 
-Operations: 
+## Operations: 
 
 
 ### Create index
 
-`GET /thing/`
+    PUT /index
 
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/
-
-
-### Lets be typesafe
+### Lets be typesafe [Mapping]
 
     PUT /my_index/_mapping?pretty
     {
@@ -176,7 +176,7 @@ There is a mathematical formula for getting the
     }
     }
 
-To understand the relevance score, there is a explain api
+To understand the relevance score, there is a _explain api
 
 
 
@@ -187,90 +187,23 @@ To understand the relevance score, there is a explain api
     }
     }
 
-The API returns the following response:
-
-```cs
-{
-"_index":"my-index-000001",
-"_id":"0",
-"matched":true,
-"explanation":{
-    "value":1.6943598,
-    "description":"weight(message:elasticsearch in 0) [PerFieldSimilarity], result of:",
-    "details":[
-        {
-            "value":1.6943598,
-            "description":"score(freq=1.0), computed as boost * idf * tf from:",
-            "details":[
-            {
-                "value":2.2,
-                "description":"boost",
-                "details":[]
-            },
-            {
-                "value":1.3862944,
-                "description":"idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:",
-                "details":[
-                    {
-                        "value":1,
-                        "description":"n, number of documents containing term",
-                        "details":[]
-                    },
-                    {
-                        "value":5,
-                        "description":"N, total number of documents with field",
-                        "details":[]
-                    }
-                ]
-            },
-            {
-                "value":0.5555556,
-                "description":"tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:",
-                "details":[
-                    {
-                        "value":1.0,
-                        "description":"freq, occurrences of term within document",
-                        "details":[]
-                    },
-                    {
-                        "value":1.2,
-                        "description":"k1, term saturation parameter",
-                        "details":[]
-                    },
-                    {
-                        "value":0.75,
-                        "description":"b, length normalization parameter",
-                        "details":[]
-                    },
-                    {
-                        "value":3.0,
-                        "description":"dl, length of field",
-                        "details":[]
-                    },
-                    {
-                        "value":5.4,
-                        "description":"avgdl, average length of field",
-                        "details":[]
-                    }
-                ]
-            }
-            ]
-        }
-    ]
-}
-}
-
-```
-
-
-
-
-
-
 
 
 ## Aha , we can scale
+<figure>
+  <img src="{{ '/images/clusterelasticsearch.png' | prepend: site.baseurl }}" alt=""> 
+  <figcaption>Fig1. - Analyzer Workflow</figcaption>
+</figure>
 
+The ElasticSearch distributive architecture is configurable and can be orchestrated through config files
+We can specify our own routing parameters and customise our indexing.
+The formula is :
 shard = hash(routing) % number_of_primary_shards
 
-distributive system logic
+    PUT my-index-000001/_doc/1?routing=user1&refresh=true 
+    {
+    "title": "This is a document"
+    }
+
+    GET my-index-000001/_doc/1?routing=user1 
+
