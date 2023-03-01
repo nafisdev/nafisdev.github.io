@@ -7,8 +7,6 @@ excerpt: Lets Uncover it
 keywords: ""
 ---
 
-## How Hard Can it be
-
 A Data streaming service as its name suggests is just a pipeline between a source and destination.
 
 

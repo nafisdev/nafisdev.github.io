@@ -1,6 +1,6 @@
 ---
 layout: post
-title: opinionated
+title: Opinionated
 comments: true
 image: 2021.jpg
 excerpt: Ending 2021 with a plan for 2022

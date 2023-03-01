@@ -7,8 +7,6 @@ excerpt: Lets Uncover it
 keywords: ""
 ---
 
-## Whats hidden
-
 All enterprise application are just a wrapper service that gets evolved gradually , but underneath there lies basic functions. Here, I'll start with a simple DSA question where we add sentences and search it by some input words.
 
 The algorithm that we are using is exploits the concept called [InvertedIndex](https://www.geeksforgeeks.org/inverted-index/) and the elasticsearch uses [ApacheLucene](https://lucene.apache.org/)
