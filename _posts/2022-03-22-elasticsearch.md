@@ -103,7 +103,7 @@ Ohk, now after the DSA round, you are hired. We cant just have this, we need to 
 
 Oooh, meta programming!!
 
-Its there, but we all know, what happen, we developers play around wit reflections.
+Its there, but we all know, what happen, we developers play around with reflections.
 
 So, the PM comes with a solution to standardize it. Its time to get the sprint board ready.
 
